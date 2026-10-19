@@ -48,5 +48,5 @@ cargo test --manifest-path server/Cargo.toml
 
 ## Seed data
 
-`server/seed/bars.json` holds the starter bars in Copenhagen. Their pins are
-approximate and show as unverified until someone moves them onto the venue.
+`server/seed/bars.json` holds the starter bars in Copenhagen. Pins without
+`"verified": true` show as unverified until someone moves them onto the venue.

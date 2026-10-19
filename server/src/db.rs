@@ -24,10 +24,13 @@ struct SeedBar {
     country: Option<String>,
     lat: f64,
     lng: f64,
+    /// True when the pin is known to be on the venue.
+    #[serde(default)]
+    verified: bool,
 }
 
-/// Loads the starter venues on first run. Their pins are approximate, so they
-/// start out unverified until someone drags them onto the real venue.
+/// Loads the starter venues on first run. Pins not marked verified start out
+/// unverified until someone drags them onto the real venue.
 pub async fn seed_if_empty(pool: &SqlitePool) -> anyhow::Result<()> {
     let (count,): (i64,) = sqlx::query_as("SELECT COUNT(*) FROM bars")
         .fetch_one(pool)
@@ -49,7 +52,7 @@ pub async fn seed_if_empty(pool: &SqlitePool) -> anyhow::Result<()> {
                 player_offers: None,
                 website: None,
             },
-            false,
+            bar.verified,
         )
         .await?;
     }

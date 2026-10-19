@@ -16,17 +16,20 @@
     "lng": 12.5539
   },
   {
-    "name": "Bar Godt",
+    "name": "Bar' Godt",
     "city": "Copenhagen",
     "country": "DK",
-    "lat": 55.6761,
-    "lng": 12.5683
+    "lat": 55.6803,
+    "lng": 12.5749,
+    "address": "Kejsergade 1"
   },
   {
-    "name": "Kiohsk",
+    "name": "Kihoskh",
     "city": "Copenhagen",
     "country": "DK",
-    "lat": 55.6702,
-    "lng": 12.5478
+    "lat": 55.66648,
+    "lng": 12.55302,
+    "address": "Sønder Boulevard 53",
+    "verified": true
   }
 ]
