@@ -1,0 +1,32 @@
+[
+  {
+    "name": "ÅBEN Kødbyen",
+    "address": "Kødbyen",
+    "city": "Copenhagen",
+    "country": "DK",
+    "lat": 55.6688,
+    "lng": 12.5607
+  },
+  {
+    "name": "Café Dyrehaven",
+    "address": "Sønder Boulevard 72",
+    "city": "Copenhagen",
+    "country": "DK",
+    "lat": 55.6668,
+    "lng": 12.5539
+  },
+  {
+    "name": "Bar Godt",
+    "city": "Copenhagen",
+    "country": "DK",
+    "lat": 55.6761,
+    "lng": 12.5683
+  },
+  {
+    "name": "Kiohsk",
+    "city": "Copenhagen",
+    "country": "DK",
+    "lat": 55.6702,
+    "lng": 12.5478
+  }
+]
