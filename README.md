@@ -27,7 +27,8 @@ For frontend work, run `npm run dev` in `web/` as well and use the Vite URL; it
 forwards `/api` to the Rust server.
 
 Settings (environment variables): `DATABASE_URL` (default `sqlite://tcgbars.db`),
-`STATIC_DIR` (default `web/dist`), `BIND_ADDR` (default `127.0.0.1:8080`).
+`STATIC_DIR` (default `web/dist`), `PORT` (listen on `0.0.0.0:$PORT`) or
+`BIND_ADDR` (default `127.0.0.1:8080`).
 
 ## API
 
@@ -39,6 +40,7 @@ Settings (environment variables): `DATABASE_URL` (default `sqlite://tcgbars.db`)
 | PATCH | `/api/bars/{id}/location` | Move a pin: `{ lat, lng }` (marks the location as verified) |
 | POST | `/api/bars/{id}/ratings` | Rate a bar: `{ lighting, table_space, offers, comment? }`, each 1 to 5 |
 | GET | `/api/events` | Server-sent events (`bar_created`, `bar_moved`, `bar_rated`) for live map updates |
+| GET | `/api/health` | Returns `ok` when the server and database are up |
 
 ## Tests
 
@@ -50,3 +52,19 @@ cargo test --manifest-path server/Cargo.toml
 
 `server/seed/bars.json` holds the starter bars in Copenhagen. Pins without
 `"verified": true` show as unverified until someone moves them onto the venue.
+
+## Deploying on Railway
+
+The repo includes a `Dockerfile` and `railway.toml`, so Railway builds and runs
+it as is.
+
+1. In Railway, create a project from this GitHub repo.
+2. Add a volume to the service and mount it at `/data`. The SQLite database
+   lives there; without a volume, every deploy starts from an empty database.
+3. Under Networking, generate a domain (or add your own, e.g. tcgbars.com).
+
+Railway sets `PORT` and checks `/api/health` before switching traffic to a new
+deploy. Keep the service at one replica, since SQLite is a single file on one
+volume.
+
+To build the same image locally: `docker build -t tcgbars . && docker run -p 8080:8080 -v tcgbars-data:/data tcgbars`.
