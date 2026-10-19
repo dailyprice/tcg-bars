@@ -28,6 +28,13 @@ pub fn routes() -> Router<AppState> {
         .route("/bars/{id}/location", patch(move_bar))
         .route("/bars/{id}/ratings", post(rate_bar))
         .route("/events", get(events))
+        .route("/health", get(health))
+}
+
+/// Used by the host's health check; also confirms the database answers.
+async fn health(State(state): State<AppState>) -> ApiResult<&'static str> {
+    sqlx::query("SELECT 1").execute(&state.pool).await?;
+    Ok("ok")
 }
 
 pub enum ApiError {
